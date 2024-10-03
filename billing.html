@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Billing System</h2>
+
+    <!-- Generate Bill -->
+    <form id="billingForm">
+        <label for="billPatientId">Patient ID:</label>
+        <input type="text" id="billPatientId" required><br>
+        <label for="totalAmount">Total Amount:</label>
+        <input type="text" id="totalAmount" required><br>
+        <button type="button" onclick="generateBill()">Generate Bill</button>
+    </form>
+
+    <h3>View Bills</h3>
+    <form id="viewBillForm">
+        <label for="viewBillPatientId">Patient ID:</label>
+        <input type="text" id="viewBillPatientId" required><br>
+        <button type="button" onclick="viewBills()">View Bills</button>
+    </form>
+
+    <div id="bills"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
