@@ -5,17 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Common Navigation and Styling */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            padding: 8px 16px;
+            transition: 1s;
+        }
+        nav a:hover {
+            background-color: #000000;
+            border-radius: 5px;
+        }
+
+        body {
+            padding-top: 100px;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            margin-bottom: 15px;
+            padding: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #555;
+        }
+
+        #patientDetails, #doctorDetails {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            display: none; /* Hidden initially */
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="admin.html">Admin Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <h2>Admin Dashboard</h2>
 
     <h3>Manage Patients</h3>
     <form id="managePatientForm">
         <label for="managePatientId">Patient ID:</label>
         <input type="text" id="managePatientId" required><br>
-        <button type="button" onclick="viewPatientDetails()">View Details</button>
+        <button type="button" onclick="viewPatientDetails()">View Patient Details</button>
     </form>
+
+    <div id="patientDetails">
+        <h4>Patient Information:</h4>
+        <p><strong>ID:</strong> <span id="patientId"></span></p>
+        <p><strong>Name:</strong> <span id="patientName"></span></p>
+        <p><strong>DOB:</strong> <span id="patientDOB"></span></p>
+        <p><strong>Gender:</strong> <span id="patientGender"></span></p>
+        <p><strong>Phone:</strong> <span id="patientPhone"></span></p>
+    </div>
 
     <h3>Manage Doctors</h3>
     <form id="manageDoctorForm">
-        <label for="manage
+        <label for="manageDoctorId">Doctor ID:</label>
+        <input type="text" id="manageDoctorId" required><br>
+        <button type="button" onclick="viewDoctorDetails()">View Doctor Details</button>
+    </form>
+
+    <div id="doctorDetails">
+        <h4>Doctor Information:</h4>
+        <p><strong>ID:</strong> <span id="doctorId"></span></p>
+        <p><strong>Name:</strong> <span id="doctorName"></span></p>
+        <p><strong>Specialty:</strong> <span id="doctorSpecialty"></span></p>
+        <p><strong>Experience:</strong> <span id="doctorExperience"></span></p>
+        <p><strong>Age:</strong> <span id="doctorAge"></span></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -4,35 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Management</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Common Styling */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            padding: 8px 16px;
+            transition: 1s;
+        }
+        nav a:hover {
+            background-color: #000000;
+            border-radius: 5px;
+        }
+
+        body {
+            padding-top: 100px;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            margin-bottom: 15px;
+            padding: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="doctor_management.html">Doctor Management</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <h2>Doctor Management</h2>
 
     <!-- Register Doctor -->
     <h3>Register Doctor</h3>
     <form id="doctorForm">
+        <label for="docId">Doctor ID:</label>
+        <input type="text" id="docId" required><br>
+
         <label for="docFirstName">First Name:</label>
         <input type="text" id="docFirstName" required><br>
+
         <label for="docLastName">Last Name:</label>
         <input type="text" id="docLastName" required><br>
+
         <label for="specialty">Specialty:</label>
         <input type="text" id="specialty" required><br>
+
+        <label for="experience">Years of Experience:</label>
+        <input type="number" id="experience" min="0" required><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" min="25" max="100" required><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required><br>
+
         <button type="button" onclick="registerDoctor()">Register</button>
     </form>
 
-    <!-- Schedule Appointment -->
-    <h3>Schedule Appointment</h3>
-    <form id="appointmentForm">
-        <label for="docPatientId">Patient ID:</label>
-        <input type="text" id="docPatientId" required><br>
-        <label for="docId">Doctor ID:</label>
-        <input type="text" id="docId" required><br>
-        <label for="appointmentDate">Date:</label>
-        <input type="date" id="appointmentDate" required><br>
-        <button type="button" onclick="scheduleDoctorAppointment()">Schedule</button>
-    </form>
-    
     <script src="script.js"></script>
 </body>
 </html>

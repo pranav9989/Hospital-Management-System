@@ -4,52 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Management</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styling as before */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            padding: 8px 16px;
+            transition: 1s;
+        }
+        nav a:hover {
+            background-color: #000000;
+            border-radius: 5px;
+        }
+        body {
+            padding-top: 100px;
+            font-family: Arial, sans-serif;
+        }
+        form {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, select {
+            margin-bottom: 15px;
+            padding: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #555;
+        }
+        .success-message {
+            color: green;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Patient Management</h2>
-    
+    <header>
+        <nav>
+            <!-- Add Home and Patient Management links -->
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="patient.html">Patient Management</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <!-- Registration Form -->
     <h3>Register Patient</h3>
     <form id="patientForm">
         <label for="patient-id">Patient ID:</label>
-        <input type="text" id="patient-id required"><br>
+        <input type="text" id="patient-id" required><br>
+
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" required><br>
+
         <label for="lastName">Last Name:</label>
         <input type="text" id="lastName" required><br>
+
         <label for="dob">Date of Birth:</label>
         <input type="date" id="dob" required><br>
+
         <label for="gender">Gender:</label>
         <select id="gender">
             <option value="Male">Male</option>
             <option value="Female">Female</option>
         </select><br>
+
         <label for="phone">Phone:</label>
         <input type="text" id="phone" required><br>
+
         <button type="button" onclick="registerPatient()">Register</button>
     </form>
 
-    <!-- Update Patient Records -->
-    <h3>Update Patient Record</h3>
-    <form id="updatePatientForm">
-        <label for="updatePatientId">Patient ID:</label>
-        <input type="text" id="updatePatientId" required><br>
-        <label for="newPhone">New Phone:</label>
-        <input type="text" id="newPhone" required><br>
-        <button type="button" onclick="updatePatientRecord()">Update</button>
-    </form>
+    <!-- Success message will appear here -->
+    <div id="successMessage" class="success-message"></div>
 
-    <!-- View Patient History -->
-    <h3>View Patient History</h3>
-    <form id="viewHistoryForm">
-        <label for="historyPatientId">Patient ID:</label>
-        <input type="text" id="historyPatientId" required><br>
-        <button type="button" onclick="viewPatientHistory()">View History</button>
-    </form>
-
-    <div id="patientHistory"></div>
-    
     <script src="script.js"></script>
 </body>
 </html>
