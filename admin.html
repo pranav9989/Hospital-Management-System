@@ -82,6 +82,10 @@
             border: 1px solid #ccc;
             display: none; /* Hidden initially */
         }
+
+        #patientDetails, #doctorDetails {
+            display: none; /* Hidden initially */
+        }
     </style>
 </head>
 <body>
@@ -89,6 +93,10 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
+                <li><a href="patient.html">Patient Management</a></li>
+                <li><a href="doctor.html">Doctor Management</a></li>
+                <li><a href="appointment.html">Appointment Booking</a></li>
+                <li><a href="billing.html">Billing System</a></li>
                 <li><a href="admin.html">Admin Dashboard</a></li>
             </ul>
         </nav>
@@ -101,6 +109,7 @@
         <label for="managePatientId">Patient ID:</label>
         <input type="text" id="managePatientId" required><br>
         <button type="button" onclick="viewPatientDetails()">View Patient Details</button>
+        <button type="button" onclick="deletePatient()">Delete Patient</button>
     </form>
 
     <div id="patientDetails">
@@ -112,21 +121,39 @@
         <p><strong>Phone:</strong> <span id="patientPhone"></span></p>
     </div>
 
+    <!-- New Input Fields for Deleting Patient -->
+    <h3>Delete Patient</h3>
+    <form id="deletePatientForm" onsubmit="deletePatientById(); return false;">
+        <input type="text" id="deletePatientId" placeholder="Enter Patient ID" required>
+        <button type="submit">Delete Patient</button>
+    </form>
+    <div id="successMessage" style="display:none;"></div>
+
     <h3>Manage Doctors</h3>
     <form id="manageDoctorForm">
         <label for="manageDoctorId">Doctor ID:</label>
         <input type="text" id="manageDoctorId" required><br>
         <button type="button" onclick="viewDoctorDetails()">View Doctor Details</button>
+        <button type="button" onclick="deleteDoctor()">Delete Doctor</button>
     </form>
 
     <div id="doctorDetails">
         <h4>Doctor Information:</h4>
         <p><strong>ID:</strong> <span id="doctorId"></span></p>
         <p><strong>Name:</strong> <span id="doctorName"></span></p>
+        <p><strong>Gender:</strong> <span id="doctorGender"></span></p>
         <p><strong>Specialty:</strong> <span id="doctorSpecialty"></span></p>
         <p><strong>Experience:</strong> <span id="doctorExperience"></span></p>
         <p><strong>Age:</strong> <span id="doctorAge"></span></p>
     </div>
+
+    <!-- New Input Fields for Deleting Doctor -->
+    <h3>Delete Doctor</h3>
+    <form id="deleteDoctorForm" onsubmit="deleteDoctorById(); return false;">
+        <input type="text" id="deleteDoctorId" placeholder="Enter Doctor ID" required>
+        <button type="submit">Delete Doctor</button>
+    </form>
+    <div id="successMessage" style="display:none;"></div>    
 
     <script src="script.js"></script>
 </body>

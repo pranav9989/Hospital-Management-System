@@ -4,20 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Appointment Booking</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Common Styling */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            padding: 8px 16px;
+            transition: 1s;
+        }
+
+        nav a:hover {
+            background-color: #000000;
+            border-radius: 5px;
+        }
+
+        body {
+            padding-top: 100px;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            margin-bottom: 15px;
+            padding: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="patient.html">Patient Management</a></li>
+                <li><a href="doctor.html">Doctor Management</a></li>
+                <li><a href="appointment.html">Appointment Booking</a></li>
+                <li><a href="billing.html">Billing System</a></li>
+                <li><a href="admin.html">Admin Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <h2>Appointment Booking</h2>
 
-    <!-- Book Appointment -->
     <h3>Book Appointment</h3>
     <form id="bookAppointmentForm">
         <label for="bookPatientId">Patient ID:</label>
         <input type="text" id="bookPatientId" required><br>
+
         <label for="bookDoctorId">Doctor ID:</label>
         <input type="text" id="bookDoctorId" required><br>
+
         <label for="bookAppointmentDate">Date:</label>
         <input type="date" id="bookAppointmentDate" required><br>
+
         <button type="button" onclick="bookAppointment()">Book</button>
     </form>
 
@@ -25,6 +113,7 @@
     <form id="viewAppointmentsForm">
         <label for="viewAppPatientId">Patient ID:</label>
         <input type="text" id="viewAppPatientId" required><br>
+
         <button type="button" onclick="viewAppointments()">View</button>
     </form>
 

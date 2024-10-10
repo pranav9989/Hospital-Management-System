@@ -4,17 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billing System</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Common Styling */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            padding: 8px 16px;
+            transition: 1s;
+        }
+
+        nav a:hover {
+            background-color: #000000;
+            border-radius: 5px;
+        }
+
+        body {
+            padding-top: 100px;
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            padding: 8px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="patient.html">Patient Management</a></li>
+                <li><a href="doctor.html">Doctor Management</a></li>
+                <li><a href="appointment.html">Appointment Booking</a></li>
+                <li><a href="billing.html">Billing System</a></li>
+                <li><a href="admin.html">Admin Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <h2>Billing System</h2>
 
     <!-- Generate Bill -->
     <form id="billingForm">
         <label for="billPatientId">Patient ID:</label>
         <input type="text" id="billPatientId" required><br>
+
+        <label for="medicine-cost">Medicine Cost:</label>
+        <input type="text" id="medicine-cost" required><br>
+
+        <label for="consulting-cost">Consulting Cost:</label>
+        <input type="text" id="consulting-cost" required><br>
+
+        <label for="hospitalization-charge">Hospitalization Charges:</label>
+        <input type="text" id="hospitalization-charge" required><br>
+
         <label for="totalAmount">Total Amount:</label>
         <input type="text" id="totalAmount" required><br>
+
         <button type="button" onclick="generateBill()">Generate Bill</button>
     </form>
 
@@ -22,6 +119,7 @@
     <form id="viewBillForm">
         <label for="viewBillPatientId">Patient ID:</label>
         <input type="text" id="viewBillPatientId" required><br>
+
         <button type="button" onclick="viewBills()">View Bills</button>
     </form>
 

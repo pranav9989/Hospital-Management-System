@@ -53,6 +53,7 @@ function registerDoctor() {
     const doctorId = document.getElementById('docId').value;
     const firstName = document.getElementById('docFirstName').value;
     const lastName = document.getElementById('docLastName').value;
+    const gender = document.getElementById('gender').value;
     const specialty = document.getElementById('specialty').value;
     const experience = document.getElementById('experience').value;
     const age = document.getElementById('age').value;
@@ -73,6 +74,7 @@ function registerDoctor() {
             id: doctorId,
             firstName: firstName,
             lastName: lastName,
+            gender : gender,
             specialty: specialty,
             experience: experience,
             age: age,
@@ -91,29 +93,14 @@ function registerDoctor() {
 }
 
 // Schedule Doctor Appointment
-function scheduleDoctorAppointment() {
-    const patientId = document.getElementById('docPatientId').value;
-    const doctorId = document.getElementById('docId').value;
-    const appointmentDate = document.getElementById('appointmentDate').value;
+// Book Appointment
+function bookAppointment() {
+    const patientId = document.getElementById('bookPatientId').value;
+    const doctorId = document.getElementById('bookDoctorId').value;
+    const appointmentDate = document.getElementById('bookAppointmentDate').value;
 
     if (patientId && doctorId && appointmentDate) {
-        const doctors = getData('doctors');
-        const patients = getData('patients');
         const appointments = getData('appointments');
-
-        // Check if doctor exists
-        const doctorExists = doctors.find(doctor => doctor.id === doctorId);
-        if (!doctorExists) {
-            alert('Doctor not found!');
-            return;
-        }
-
-        // Check if patient exists
-        const patientExists = patients.find(patient => patient.id === patientId);
-        if (!patientExists) {
-            alert('Patient not found!');
-            return;
-        }
 
         // Create appointment object
         const appointment = {
@@ -122,12 +109,12 @@ function scheduleDoctorAppointment() {
             date: appointmentDate
         };
 
-        // Add appointment to local storage
+        // Save appointment to local storage
         appointments.push(appointment);
         saveData('appointments', appointments);
 
-        alert('Appointment Scheduled Successfully!');
-        document.getElementById('appointmentForm').reset();
+        alert('Appointment Booked Successfully!');
+        document.getElementById('bookAppointmentForm').reset();
     } else {
         alert('Please fill in all the fields!');
     }
@@ -135,8 +122,8 @@ function scheduleDoctorAppointment() {
 
 // View Appointments
 function viewAppointments() {
-    const appointments = getData('appointments');
     const patientId = document.getElementById('viewAppPatientId').value;
+    const appointments = getData('appointments');
 
     if (!patientId) {
         alert('Please enter a valid Patient ID');
@@ -144,7 +131,7 @@ function viewAppointments() {
     }
 
     const patientAppointments = appointments.filter(a => a.patientId === patientId);
-    
+
     const appointmentsDiv = document.getElementById('appointments');
     if (patientAppointments.length > 0) {
         appointmentsDiv.innerHTML = '<h4>Your Appointments:</h4>';
@@ -157,11 +144,15 @@ function viewAppointments() {
 }
 
 // Billing Functions
+// Billing Functions
 function generateBill() {
     const patientId = document.getElementById('billPatientId').value;
-    const amount = document.getElementById('totalAmount').value;
+    const medicineCost = document.getElementById('medicine-cost').value;
+    const consultingCost = document.getElementById('consulting-cost').value;
+    const hospitalizationCharge = document.getElementById('hospitalization-charge').value;
+    const totalAmount = document.getElementById('totalAmount').value;
 
-    if (patientId && amount) {
+    if (patientId && medicineCost && consultingCost && hospitalizationCharge && totalAmount) {
         const patients = getData('patients');
         const bills = getData('bills');
 
@@ -175,7 +166,10 @@ function generateBill() {
         // Create new bill object
         const bill = {
             patientId: patientId,
-            amount: amount,
+            medicineCost: medicineCost,
+            consultingCost: consultingCost,
+            hospitalizationCharge: hospitalizationCharge,
+            totalAmount: totalAmount,
             date: new Date().toLocaleDateString()
         };
 
@@ -206,13 +200,15 @@ function viewBills() {
     if (patientBills.length > 0) {
         billsDiv.innerHTML = '<h4>Your Bills:</h4>';
         patientBills.forEach(bill => {
-            billsDiv.innerHTML += `<p>Amount: ${bill.amount} on ${bill.date}</p>`;
+            billsDiv.innerHTML += `<p>Medicine Cost: ${bill.medicineCost}, Consulting Cost: ${bill.consultingCost}, 
+            Hospitalization Charge: ${bill.hospitalizationCharge}, Total Amount: ${bill.totalAmount} on ${bill.date}</p>`;
         });
     } else {
         billsDiv.innerHTML = '<p>No Bills Found!</p>';
     }
 }
 
+// View Patient Details
 function viewPatientDetails() {
     const patientId = document.getElementById('managePatientId').value;
 
@@ -260,6 +256,7 @@ function viewDoctorDetails() {
         document.getElementById('doctorSpecialty').innerText = doctor.specialty;
         document.getElementById('doctorExperience').innerText = doctor.experience;
         document.getElementById('doctorAge').innerText = doctor.age;
+        document.getElementById('doctorGender').innerText = doctor.gender;
 
         // Display the doctor details section
         document.getElementById('doctorDetails').style.display = 'block';
@@ -269,3 +266,57 @@ function viewDoctorDetails() {
         alert('Doctor Not Found!');
     }
 }
+
+// Delete Patient
+function deletePatientById() {
+    const patientId = document.getElementById('deletePatientId'); // Get the input field for Patient ID
+    const patients = getData('patients'); // Retrieve the current patient records from local storage
+
+    // Check if Patient ID is provided
+    if (!patientId.value) {
+        showMessage('successMessage', 'Please enter a valid Patient ID');
+        return;
+    }
+
+    // Find the index of the patient with the given ID
+    const patientIndex = patients.findIndex(patient => patient.id === patientId.value);
+
+    // If the patient is found, remove it from the array
+    if (patientIndex !== -1) {
+        patients.splice(patientIndex, 1); // Remove the patient from the array
+        saveData('patients', patients); // Update local storage with the new array
+        showMessage('successMessage', 'Patient record deleted successfully!'); // Notify the user
+        document.getElementById('deletePatientForm').reset(); // Reset the form
+    } else {
+        // If the patient is not found, show an error message
+        showMessage('successMessage', 'Patient ID not found!');
+    }
+}
+
+
+// Delete Doctor
+function deleteDoctorById() {
+    const doctorId = document.getElementById('deleteDoctorId'); // Get the input field for Doctor ID
+    const doctors = getData('doctors'); // Retrieve the current doctor records from local storage
+
+    // Check if Doctor ID is provided
+    if (!doctorId.value) {
+        showMessage('successMessage', 'Please enter a valid Doctor ID');
+        return;
+    }
+
+    // Find the index of the doctor with the given ID
+    const doctorIndex = doctors.findIndex(doctor => doctor.id === doctorId.value);
+
+    // If the doctor is found, remove it from the array
+    if (doctorIndex !== -1) {
+        doctors.splice(doctorIndex, 1); // Remove the doctor from the array
+        saveData('doctors', doctors); // Update local storage with the new array
+        showMessage('successMessage', 'Doctor record deleted successfully!'); // Notify the user
+        document.getElementById('deleteDoctorForm').reset(); // Reset the form
+    } else {
+        // If the doctor is not found, show an error message
+        showMessage('successMessage', 'Doctor ID not found!');
+    }
+}
+

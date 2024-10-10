@@ -80,7 +80,11 @@
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="doctor_management.html">Doctor Management</a></li>
+                <li><a href="patient.html">Patient Management</a></li>
+                <li><a href="doctor.html">Doctor Management</a></li>
+                <li><a href="appointment.html">Appointment Booking</a></li>
+                <li><a href="billing.html">Billing System</a></li>
+                <li><a href="admin.html">Admin Dashboard</a></li>
             </ul>
         </nav>
     </header>
@@ -99,6 +103,17 @@
         <label for="docLastName">Last Name:</label>
         <input type="text" id="docLastName" required><br>
 
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select><br>
+
         <label for="specialty">Specialty:</label>
         <input type="text" id="specialty" required><br>
 
@@ -108,8 +123,7 @@
         <label for="age">Age:</label>
         <input type="number" id="age" min="25" max="100" required><br>
 
-        <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" required><br>
+        
 
         <button type="button" onclick="registerDoctor()">Register</button>
     </form>
