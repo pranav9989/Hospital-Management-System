@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         /* Common Navigation and Styling */
         nav {
@@ -109,10 +108,9 @@
         <label for="managePatientId">Patient ID:</label>
         <input type="text" id="managePatientId" required><br>
         <button type="button" onclick="viewPatientDetails()">View Patient Details</button>
-        <button type="button" onclick="deletePatient()">Delete Patient</button>
     </form>
 
-    <div id="patientDetails">
+    <div id="patientDetails" style="display: none;">
         <h4>Patient Information:</h4>
         <p><strong>ID:</strong> <span id="patientId"></span></p>
         <p><strong>Name:</strong> <span id="patientName"></span></p>
@@ -120,7 +118,8 @@
         <p><strong>Gender:</strong> <span id="patientGender"></span></p>
         <p><strong>Phone:</strong> <span id="patientPhone"></span></p>
     </div>
-
+    
+    
     <!-- New Input Fields for Deleting Patient -->
     <h3>Delete Patient</h3>
     <form id="deletePatientForm" onsubmit="deletePatientById(); return false;">
@@ -134,7 +133,6 @@
         <label for="manageDoctorId">Doctor ID:</label>
         <input type="text" id="manageDoctorId" required><br>
         <button type="button" onclick="viewDoctorDetails()">View Doctor Details</button>
-        <button type="button" onclick="deleteDoctor()">Delete Doctor</button>
     </form>
 
     <div id="doctorDetails">
@@ -155,6 +153,6 @@
     </form>
     <div id="successMessage" style="display:none;"></div>    
 
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
