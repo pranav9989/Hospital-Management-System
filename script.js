@@ -46,20 +46,20 @@ function registerPatient() {
                 // Push new patient data to Firebase
                 push(patientDetailsInDB, newPatient)
                     .then(() => {
-                        document.getElementById('successMessage').innerText = 'Patient Registered Successfully!';
+                        window.alert("Patient REgistered Successfully");
                         document.getElementById('patientForm').reset();
                     })
                     .catch((error) => {
                         console.error('Error registering patient: ', error);
-                        document.getElementById('successMessage').innerText = 'Error registering patient. Please try again.';
+                        window.alert('Error registering patient. Please try again.');
                     });
             }
         }).catch((error) => {
             console.error('Error fetching data: ', error);
-            document.getElementById('successMessage').innerText = 'Error checking patient ID. Please try again.';
+            window.alert('Error checking patient ID. Please try again.');
         });
     } else {
-        document.getElementById('successMessage').innerText = 'Please fill in all the fields!';
+        window.alert('Please fill in all the fields!');
     }
 }
 // Make function accessible globally
@@ -127,16 +127,16 @@ function bookAppointment() {
         const appointmentDetails = {
             doctorId: doctorId,
             appointmentDate: appointmentDate,
-            status: 'Booked' // or any other status you want to set
+            status: 'Booked' 
         };
 
-        const appointmentRef = ref(database, `appointmentDetails/${patientId}`); // Reference for patient ID
+        const appointmentRef = ref(database, `appointmentDetails/${patientId}`);
         
         // Push a new appointment under the patient ID
         push(appointmentRef, appointmentDetails)  // Use push to add to the list
             .then(() => {
                 alert('Appointment booked successfully!');
-                document.getElementById('bookAppointmentForm').reset(); // Reset the form
+                document.getElementById('bookAppointmentForm').reset(); 
             })
             .catch((error) => {
                 console.error('Error booking appointment: ', error);
@@ -147,7 +147,6 @@ function bookAppointment() {
     }
 }
 
-// Make function accessible globally
 window.bookAppointment = bookAppointment;
 
 
@@ -160,10 +159,8 @@ function viewAppointments() {
     }
 
     const appointmentsRef = ref(database, `appointmentDetails/${patientId}`);
-
-    // Clear previous results and show a loading message
     const appointmentsContainer = document.getElementById('appointments');
-    appointmentsContainer.innerHTML = 'Loading...'; // Indicate loading state
+    appointmentsContainer.innerHTML = 'Loading...'; 
 
     // Retrieve appointments for the specified patient
     get(appointmentsRef)
@@ -174,7 +171,18 @@ function viewAppointments() {
                 const appointments = snapshot.val(); // This will be an object of appointment objects
                 console.log('Appointments:', appointments); // Log the entire appointments object
 
-                // Iterate over appointments and display them
+                // Create a table for displaying appointments
+                let table = `<table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Doctor ID</th>
+                                        <th>Appointment Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+
+                // Iterate over appointments and append rows to the table
                 for (const key in appointments) {
                     const appointment = appointments[key]; // Access each appointment object
 
@@ -184,38 +192,45 @@ function viewAppointments() {
                         const appointmentDate = appointment.appointmentDate || 'N/A';
                         const status = appointment.status || 'N/A';
 
-                        appointmentsContainer.innerHTML = `Doctor ID: ${doctorId}, Date: ${appointmentDate}, Status: ${status}`;
+                        table += `<tr>
+                                    <td>${doctorId}</td>
+                                    <td>${appointmentDate}</td>
+                                    <td>${status}</td>
+                                  </tr>`;
                     }
                 }
+
+                table += '</tbody></table>';
+                appointmentsContainer.innerHTML = table;
             } else {
-                appointmentsContainer.textContent = 'No appointments found for this Patient ID.';
+                appointmentsContainer.innerHTML = '<div class="alert alert-warning">No appointments found for this Patient ID.</div>';
             }
         })
         .catch((error) => {
             console.error('Error retrieving appointments: ', error);
-            appointmentsContainer.textContent = 'Error retrieving appointments. Please try again later.';
+            appointmentsContainer.innerHTML = '<div class="alert alert-danger">Error retrieving appointments. Please try again later.</div>';
         });
 }
 
-// Make function accessible globally
 window.viewAppointments = viewAppointments;
 
-
-// Function to generate a bill
+//function to Generate a Bill
 function generateBill() {
     const patientId = document.getElementById('billPatientId').value;
     const medicineCost = document.getElementById('medicine-cost').value;
     const consultingCost = document.getElementById('consulting-cost').value;
     const hospitalizationCharge = document.getElementById('hospitalization-charge').value;
-    const totalAmount = document.getElementById('totalAmount').value;
 
-    if (patientId && medicineCost && consultingCost && hospitalizationCharge && totalAmount) {
+    if (patientId && medicineCost && consultingCost && hospitalizationCharge) {
+        // Calculate total amount
+        const totalAmount = parseFloat(medicineCost) + parseFloat(consultingCost) + parseFloat(hospitalizationCharge);
+
         const billingDetails = {
             patientId: patientId,
             medicineCost: parseFloat(medicineCost),
             consultingCost: parseFloat(consultingCost),
             hospitalizationCharge: parseFloat(hospitalizationCharge),
-            totalAmount: parseFloat(totalAmount)
+            totalAmount: totalAmount // Automatically calculated
         };
 
         const billingRef = ref(database, `billingDetails/${patientId}`);
@@ -252,11 +267,34 @@ function viewBills() {
 
                 if (snapshot.exists()) {
                     const bill = snapshot.val();
-                    const billItem = document.createElement('div');
-                    billItem.textContent = `Bill for Patient ID: ${bill.patientId} - Medicine Cost: ${bill.medicineCost} - Consulting Cost: ${bill.consultingCost} - Hospitalization Charges: ${bill.hospitalizationCharge} - Total Amount: ${bill.totalAmount}`;
-                    billsContainer.appendChild(billItem);
+
+                    // Create a table to display the bill details
+                    const billTable = `
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Patient ID</th>
+                                    <th>Medicine Cost</th>
+                                    <th>Consulting Cost</th>
+                                    <th>Hospitalization Charges</th>
+                                    <th>Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>${bill.patientId}</td>
+                                    <td>${bill.medicineCost}</td>
+                                    <td>${bill.consultingCost}</td>
+                                    <td>${bill.hospitalizationCharge}</td>
+                                    <td>${bill.totalAmount}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+
+                    billsContainer.innerHTML = billTable;
                 } else {
-                    billsContainer.textContent = 'No bills found for this patient.';
+                    alert('No bills found for this patient.');
                 }
             })
             .catch((error) => {
@@ -270,6 +308,7 @@ function viewBills() {
 
 // Make function accessible globally
 window.viewBills = viewBills;
+
 
 //viewing Patient Details
 function viewPatientDetails() {
@@ -310,10 +349,10 @@ function viewPatientDetails() {
                     }
 
                     if (!found) {
-                        patientDetailsContainer.textContent = 'No patient found with this ID!';
+                        alert('No patient found with this ID!');
                     }
                 } else {
-                    patientDetailsContainer.textContent = 'No patient data available!';
+                    alert('No patient data available!');
                 }
             })
             .catch((error) => {
@@ -325,7 +364,6 @@ function viewPatientDetails() {
     }
 }
 
-// Deleting Patient by ID
 // Deleting Patient by ID
 function deletePatientById() {
     const patientId = document.getElementById('deletePatientId').value;
@@ -381,7 +419,6 @@ function deletePatientById() {
     }
 }
 
-
 // Viewing Doctor Details
 function viewDoctorDetails() {
     const doctorId = document.getElementById('manageDoctorId').value;
@@ -411,7 +448,7 @@ function viewDoctorDetails() {
                     doctorDetailsContainer.appendChild(doctorItem);
                     doctorDetailsContainer.style.display = 'block'; // Show doctor details
                 } else {
-                    doctorDetailsContainer.textContent = 'No doctor found!';
+                    alert('No doctor found for this ID');
                 }
             })
             .catch((error) => {
@@ -447,7 +484,7 @@ function deleteDoctorById() {
                             const doctorRef = ref(database, `doctors/${key}`); // Reference to the specific doctor
                             return remove(doctorRef) // Remove the specific doctor
                                 .then(() => {
-                                    const successMessage = document.getElementById('successMessage');
+                                    const successMessage = document.getElementById('successMessageDoctor');
                                     successMessage.innerText = 'Doctor deleted successfully!';
                                     successMessage.style.display = 'block';
 
@@ -478,7 +515,6 @@ function deleteDoctorById() {
     }
 }
 
-// Make functions accessible globally
 window.viewPatientDetails = viewPatientDetails;
 window.deletePatientById = deletePatientById;
 window.viewDoctorDetails = viewDoctorDetails;
