@@ -4,155 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Common Navigation and Styling */
+        /* Custom Styling */
+        body {
+            padding-top: 100px; /* Adjusted padding to match Appointment Booking */
+            background-color: #f8f9fa; /* Light gray background */
+            font-family: 'Arial', sans-serif;
+        }
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            padding: 10px 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-        nav ul li {
-            display: inline;
+            background-color: #0056b3; /* Navy blue for header */
         }
         nav a {
-            text-decoration: none;
-            color: white;
-            font-size: 20px;
-            padding: 8px 16px;
-            transition: 1s;
+            color: white !important; /* White text for navigation links */
         }
         nav a:hover {
-            background-color: #000000;
-            border-radius: 5px;
+            background-color: #003d80 !important; /* Darker shade on hover */
         }
-
-        body {
-            padding-top: 100px;
-            font-family: Arial, sans-serif;
-        }
-
-        form {
-            margin-left: 20px;
+        .container {
             margin-top: 20px;
         }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
+        .form-section {
+            background-color: #fff; /* White background for forms */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
-
-        input, select {
-            margin-bottom: 15px;
-            padding: 8px;
-            width: 100%;
-            max-width: 400px;
+        h2, h3 {
+            color: #0056b3; /* Consistent heading color */
         }
-
-        button {
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        
-        button:hover {
-            background-color: #555;
-        }
-
-        #patientDetails, #doctorDetails {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            display: none; /* Hidden initially */
-        }
-
-        #patientDetails, #doctorDetails {
-            display: none; /* Hidden initially */
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="patient.html">Patient Management</a></li>
-                <li><a href="doctor.html">Doctor Management</a></li>
-                <li><a href="appointment.html">Appointment Booking</a></li>
-                <li><a href="billing.html">Billing System</a></li>
-                <li><a href="admin.html">Admin Dashboard</a></li>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <a class="navbar-brand" href="">Hospital Management</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="patient.html">Patient Management</a></li>
+                <li class="nav-item"><a class="nav-link" href="doctor.html">Doctor Management</a></li>
+                <li class="nav-item"><a class="nav-link" href="appointment.html">Appointment Booking</a></li>
+                <li class="nav-item"><a class="nav-link" href="billing.html">Billing System</a></li>
+                <li class="nav-item"><a class="nav-link active" href="admin.html">Admin Dashboard</a></li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <h2>Admin Dashboard</h2>
+    <div class="container">
+        <h2 class="text-center">Admin Dashboard</h2>
 
-    <h3>Manage Patients</h3>
-    <form id="managePatientForm">
-        <label for="managePatientId">Patient ID:</label>
-        <input type="text" id="managePatientId" required><br>
-        <button type="button" onclick="viewPatientDetails()">View Patient Details</button>
-    </form>
+        <div class="form-section">
+            <h3>Manage Patients</h3>
+            <form id="managePatientForm">
+                <div class="form-group">
+                    <label for="managePatientId">Patient ID:</label>
+                    <input type="text" class="form-control" id="managePatientId" required>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="viewPatientDetails()">View Patient Details</button>
+            </form>
 
-    <div id="patientDetails" style="display: none;">
-        <h4>Patient Information:</h4>
-        <p><strong>ID:</strong> <span id="patientId"></span></p>
-        <p><strong>Name:</strong> <span id="patientName"></span></p>
-        <p><strong>DOB:</strong> <span id="patientDOB"></span></p>
-        <p><strong>Gender:</strong> <span id="patientGender"></span></p>
-        <p><strong>Phone:</strong> <span id="patientPhone"></span></p>
+            <div id="patientDetails" style="display: none;">
+                <h4>Patient Information:</h4>
+                <p><strong>ID:</strong> <span id="patientId"></span></p>
+                <p><strong>Name:</strong> <span id="patientName"></span></p>
+                <p><strong>DOB:</strong> <span id="patientDOB"></span></p>
+                <p><strong>Gender:</strong> <span id="patientGender"></span></p>
+                <p><strong>Phone:</strong> <span id="patientPhone"></span></p>
+            </div>
+
+            <h3>Delete Patient</h3>
+            <form id="deletePatientForm" onsubmit="deletePatientById(); return false;">
+                <input type="text" class="form-control" id="deletePatientId" placeholder="Enter Patient ID" required>
+                <button type="submit" class="btn btn-danger">Delete Patient</button>
+            </form>
+            <div id="successMessage" class="success-message" style="display:none;"></div>
+        </div>
+
+        <div class="form-section">
+            <h3>Manage Doctors</h3>
+            <form id="manageDoctorForm">
+                <div class="form-group">
+                    <label for="manageDoctorId">Doctor ID:</label>
+                    <input type="text" class="form-control" id="manageDoctorId" required>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="viewDoctorDetails()">View Doctor Details</button>
+            </form>
+
+            <div id="doctorDetails" style="display: none;">
+                <h4>Doctor Information:</h4>
+                <p><strong>ID:</strong> <span id="doctorId"></span></p>
+                <p><strong>Name:</strong> <span id="doctorName"></span></p>
+                <p><strong>Gender:</strong> <span id="doctorGender"></span></p>
+                <p><strong>Specialty:</strong> <span id="doctorSpecialty"></span></p>
+                <p><strong>Experience:</strong> <span id="doctorExperience"></span></p>
+                <p><strong>Age:</strong> <span id="doctorAge"></span></p>
+            </div>
+
+            <h3>Delete Doctor</h3>
+            <form id="deleteDoctorForm" onsubmit="deleteDoctorById(); return false;">
+                <input type="text" class="form-control" id="deleteDoctorId" placeholder="Enter Doctor ID" required>
+                <button type="submit" class="btn btn-danger">Delete Doctor</button>
+            </form>
+            <div id="successMessage" class="success-message" style="display:none;"></div>
+        </div>
     </div>
-    
-    
-    <!-- New Input Fields for Deleting Patient -->
-    <h3>Delete Patient</h3>
-    <form id="deletePatientForm" onsubmit="deletePatientById(); return false;">
-        <input type="text" id="deletePatientId" placeholder="Enter Patient ID" required>
-        <button type="submit">Delete Patient</button>
-    </form>
-    <div id="successMessage" style="display:none;"></div>
 
-    <h3>Manage Doctors</h3>
-    <form id="manageDoctorForm">
-        <label for="manageDoctorId">Doctor ID:</label>
-        <input type="text" id="manageDoctorId" required><br>
-        <button type="button" onclick="viewDoctorDetails()">View Doctor Details</button>
-    </form>
-
-    <div id="doctorDetails">
-        <h4>Doctor Information:</h4>
-        <p><strong>ID:</strong> <span id="doctorId"></span></p>
-        <p><strong>Name:</strong> <span id="doctorName"></span></p>
-        <p><strong>Gender:</strong> <span id="doctorGender"></span></p>
-        <p><strong>Specialty:</strong> <span id="doctorSpecialty"></span></p>
-        <p><strong>Experience:</strong> <span id="doctorExperience"></span></p>
-        <p><strong>Age:</strong> <span id="doctorAge"></span></p>
-    </div>
-
-    <!-- New Input Fields for Deleting Doctor -->
-    <h3>Delete Doctor</h3>
-    <form id="deleteDoctorForm" onsubmit="deleteDoctorById(); return false;">
-        <input type="text" id="deleteDoctorId" placeholder="Enter Doctor ID" required>
-        <button type="submit">Delete Doctor</button>
-    </form>
-    <div id="successMessage" style="display:none;"></div>    
-
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js" type="module"></script>
 </body>
 </html>

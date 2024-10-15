@@ -4,127 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billing System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Common Styling */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            padding: 10px 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-
-        nav ul li {
-            display: inline;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: white;
-            font-size: 20px;
-            padding: 8px 16px;
-            transition: 1s;
-        }
-
-        nav a:hover {
-            background-color: #000000;
-            border-radius: 5px;
-        }
-
         body {
             padding-top: 100px;
-            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Light background color */
+            font-family: 'Arial', sans-serif;
         }
-
-        form {
-            margin-left: 20px;
-            margin-top: 20px;
+        nav {
+            background-color: #0056b3; /* Navy blue for header */
         }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
+        nav a {
+            color: white !important; /* White text for navigation links */
         }
-
-        input {
-            margin-bottom: 15px;
-            padding: 8px;
-            width: 100%;
-            max-width: 400px;
+        nav a:hover {
+            background-color: #003d80 !important; /* Darker shade on hover */
         }
-
+        h2, h3 {
+            color: #0056b3; /* Consistent heading color */
+        }
+        .form-container {
+            background-color: #fff; /* White background for forms */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
         button {
-            padding: 10px 20px;
-            background-color: #333;
+            background-color: #0056b3;
             color: white;
-            border: none;
-            cursor: pointer;
         }
-
         button:hover {
-            background-color: #555;
+            background-color: #003d80;
         }
     </style>
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="patient.html">Patient Management</a></li>
-                <li><a href="doctor.html">Doctor Management</a></li>
-                <li><a href="appointment.html">Appointment Booking</a></li>
-                <li><a href="billing.html">Billing System</a></li>
-                <li><a href="admin.html">Admin Dashboard</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <a class="navbar-brand" href="">Hospital Management</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="patient.html">Patient Management</a></li>
+                    <li class="nav-item"><a class="nav-link" href="doctor.html">Doctor Management</a></li>
+                    <li class="nav-item"><a class="nav-link" href="appointment.html">Appointment Booking</a></li>
+                    <li class="nav-item"><a class="nav-link" href="billing.html">Billing System</a></li>
+                    <li class="nav-item"><a class="nav-link" href="admin.html">Admin Dashboard</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 
-    <h2>Billing System</h2>
+    <div class="container">
+        <h2>Billing System</h2>
 
-    <!-- Generate Bill -->
-    <form id="billingForm">
-        <label for="billPatientId">Patient ID:</label>
-        <input type="text" id="billPatientId" required><br>
+        <!-- Generate Bill -->
+        <div class="form-container">
+            <h3>Generate Bill</h3>
+            <form id="billingForm">
+                <div class="form-group">
+                    <label for="billPatientId">Patient ID:</label>
+                    <input type="text" class="form-control" id="billPatientId" required>
+                </div>
 
-        <label for="medicine-cost">Medicine Cost:</label>
-        <input type="text" id="medicine-cost" required><br>
+                <div class="form-group">
+                    <label for="medicine-cost">Medicine Cost:</label>
+                    <input type="text" class="form-control" id="medicine-cost" required>
+                </div>
 
-        <label for="consulting-cost">Consulting Cost:</label>
-        <input type="text" id="consulting-cost" required><br>
+                <div class="form-group">
+                    <label for="consulting-cost">Consulting Cost:</label>
+                    <input type="text" class="form-control" id="consulting-cost" required>
+                </div>
 
-        <label for="hospitalization-charge">Hospitalization Charges:</label>
-        <input type="text" id="hospitalization-charge" required><br>
+                <div class="form-group">
+                    <label for="hospitalization-charge">Hospitalization Charges:</label>
+                    <input type="text" class="form-control" id="hospitalization-charge" required>
+                </div>
 
-        <label for="totalAmount">Total Amount:</label>
-        <input type="text" id="totalAmount" required><br>
+                <div class="form-group">
+                    <label for="totalAmount">Total Amount:</label>
+                    <input type="text" class="form-control" id="totalAmount" required>
+                </div>
 
-        <button type="button" onclick="generateBill()">Generate Bill</button>
-    </form>
+                <button type="button" class="btn btn-primary" onclick="generateBill()">Generate Bill</button>
+            </form>
+        </div>
 
-    <h3>View Bills</h3>
-    <form id="viewBillForm">
-        <label for="viewBillPatientId">Patient ID:</label>
-        <input type="text" id="viewBillPatientId" required><br>
+        <!-- View Bills -->
+        <div class="form-container">
+            <h3>View Bills</h3>
+            <form id="viewBillForm">
+                <div class="form-group">
+                    <label for="viewBillPatientId">Patient ID:</label>
+                    <input type="text" class="form-control" id="viewBillPatientId" required>
+                </div>
 
-        <button type="button" onclick="viewBills()">View Bills</button>
-    </form>
+                <button type="button" class="btn btn-primary" onclick="viewBills()">View Bills</button>
+            </form>
+        </div>
 
-    <div id="bills"></div>
+        <div id="bills"></div>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script.js" type="module"></script>
 </body>
 </html>
